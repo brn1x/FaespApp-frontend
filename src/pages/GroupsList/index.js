@@ -21,22 +21,25 @@ export default function GroupList() {
     <>
       <Header />
       <Container>
-        
-        <List>
-          <CardList>
-            { groups.map(group => (
-              <GroupCard
-                key={group.id}
-                name={group.name} 
-                category={group.category}
-                description={group.description}
-                qttMin={group.qtt_min_students}
-                qttMax={group.qtt_max_students}
-                qttMeetings={group.qtt_meetings}
-              />
-            ))}
-          </CardList>
-        </List>
+        <div>
+          <List>
+            <CardList>
+              { groups.map(group => (
+                <GroupCard
+                  noButtons={false}
+                  key={group.id}
+                  name={group.name} 
+                  category={group.category}
+                  description={group.description}
+                  qttMin={group.qtt_min_students}
+                  qttMax={group.qtt_max_students}
+                  qttMeetings={group.qtt_meetings}
+                />
+              ))}
+            </CardList>
+            <button></button>
+          </List>
+        </div>
       </Container>
     </>
   );

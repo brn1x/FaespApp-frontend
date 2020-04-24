@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, List, CardList } from './styles';
+import { Container, List, CardList, Title } from './styles';
 
 import Header from '../../components/Header';
 import GroupCard from '../../components/GroupCard';
@@ -15,17 +15,18 @@ export default function Requests () {
       .then(response => {
         setRequests(response.data)
       })
-  }, [requests])
+  }, [])
 
   return (
     <>
       <Header />
       <Container>
-        <h1>Requerimentos Pendentes</h1>
+        <Title>Requerimentos Pendentes</Title>
         <List>
           <CardList>
             { requests.map(request =>(
               <GroupCard
+                noButtons={true}
                 key={request.id}
                 name={request.name}
                 category={request.category}
