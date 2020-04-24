@@ -15,7 +15,7 @@ export default function GroupList() {
       .then(response => {
         setGroups(response.data)
       })
-  }, [groups])
+  }, [])
 
   return (
     <>

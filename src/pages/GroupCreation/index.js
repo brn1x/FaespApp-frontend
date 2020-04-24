@@ -96,9 +96,9 @@ export default function GroupCreation () {
               />
             </label>
 
-            <Button type="submit">
+            <button type="submit">
               Cadastrar
-            </Button>
+            </button>
           </form>
       </Container>
     </>
