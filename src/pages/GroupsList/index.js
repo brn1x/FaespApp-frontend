@@ -22,7 +22,6 @@ export default function GroupList() {
       <Header />
       <Container>
         
-
         <List>
           <CardList>
             { groups.map(group => (
