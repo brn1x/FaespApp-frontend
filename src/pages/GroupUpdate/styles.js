@@ -46,5 +46,14 @@ export const Container = styled.div`
           filter: brightness(80%);
         }
     }
+
+    div {
+      display: flex;
+      
+        justify-content: center;
+      label {
+        margin: 5px;
+      }
+    }
   }
 `

@@ -17,6 +17,9 @@ export default function GroupCreation () {
   const [qttMinStd, setQttMinStd] = useState('');
   const [qttMaxStd, setQttMaxStd] = useState('');
   const [qttMeet, setQttMeet] = useState('');
+  const [campus, setCampus] = useState('');
+  const [semesterYear, setSemesterYear] = useState('');
+  const [period, setPeriod] = useState('');
 
   async function handleCreateGroup (event) {
     event.preventDefault();
@@ -29,6 +32,9 @@ export default function GroupCreation () {
       qtt_min_students: qttMinStd,
       qtt_max_students: qttMaxStd,
       qtt_meetings: qttMeet,
+      campus,
+      semester_year: semesterYear,
+      period
     };
 
     try {
@@ -100,6 +106,32 @@ export default function GroupCreation () {
                 onChange={e => setQttMeet(e.target.value)}
               />
             </label>
+
+            <div>
+              <label>
+                Campus
+                <input 
+                  value={campus}
+                  onChange={e => setCampus(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Semestre
+                <input 
+                  value={semesterYear}
+                  onChange={e => setSemesterYear(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Periodo
+                <input 
+                  value={period}
+                  onChange={e => setPeriod(e.target.value)}
+                />
+              </label>
+            </div>
 
             <button type="submit">
               Cadastrar

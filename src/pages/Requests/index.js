@@ -12,15 +12,13 @@ export default function Requests () {
 
   useEffect(() => {
     async function fillRequests() {
-      api.get('requests')
+      await api.get('requests')
         .then(response => {
           setRequests(response.data);
         })
     }
     fillRequests();
   }, [])
-
-  
   
   return (
     <>
@@ -40,6 +38,9 @@ export default function Requests () {
                 qttMin={request.qtt_min_students}
                 qttMax={request.qtt_max_students}
                 qttMeetings={request.qtt_meetings}
+                campus={request.campus}
+                semesterYear={request.semester_year}
+                period={request.period}
               />
             ))}
           </CardList>

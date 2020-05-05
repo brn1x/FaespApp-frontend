@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, List, CardList } from './styles';
+import { Container, List, CardList, Title } from './styles';
 
 import Header from '../../components/Header';
 import GroupCard from '../../components/GroupCard';
@@ -24,7 +24,7 @@ export default function GroupList() {
     <>
       <Header />
       <Container>
-        <div>
+          <Title>Lista de Grupos</Title>
           <List>
             <CardList>
               { groups.map(group => (
@@ -38,12 +38,13 @@ export default function GroupList() {
                   qttMin={group.qtt_min_students}
                   qttMax={group.qtt_max_students}
                   qttMeetings={group.qtt_meetings}
+                  campus={group.campus}
+                  semesterYear={group.semester_year}
+                  period={group.period}
                 />
               ))}
             </CardList>
-            <button></button>
           </List>
-        </div>
       </Container>
     </>
   );

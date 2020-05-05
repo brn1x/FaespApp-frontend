@@ -54,3 +54,9 @@ export const CategoryTxt = styled.p`
   color: #828282 !important;
   margin-bottom: 15px !important;
 `
+
+export const Paragraph = styled.p`
+  padding: 5px;
+  font-size: 14px;
+  color: #555;
+`

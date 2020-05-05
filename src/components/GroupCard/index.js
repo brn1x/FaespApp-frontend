@@ -1,12 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Container, CategoryTxt } from './styles';
+import { Container, CategoryTxt, Paragraph } from './styles';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXSquare } from 'react-icons/fi';
 
 import api from '../../services/api';
 
-export default function GroupCards ({ isRequest, id, name, category, description, qttMin, qttMax, qttMeetings }) {
+export default function GroupCards ({ isRequest, id, name, category, description, qttMin, qttMax, qttMeetings, campus, semesterYear, period }) {
   const history = useHistory();
 
   async function handleAcceptRequest(id) {
@@ -43,8 +43,9 @@ export default function GroupCards ({ isRequest, id, name, category, description
       <CategoryTxt>{category}</CategoryTxt>
       <span>{description}</span>
       <div>
-        <p><strong>Quantidade alunos: </strong>0/{qttMax}</p>
-        <p><strong>Quantidade de Encontros: </strong>{qttMeetings}</p>
+        <Paragraph><strong>Quantidade alunos: </strong>0/{qttMax}</Paragraph>
+        <Paragraph><strong>Quantidade de Encontros: </strong>{qttMeetings}</Paragraph>
+        <Paragraph><strong>Campus: </strong>{campus} <strong>Semestre: </strong>{semesterYear} <strong>Periodo: </strong>{period}</Paragraph>
       </div>
       { isRequest === true ? (
         <>
@@ -64,7 +65,8 @@ export default function GroupCards ({ isRequest, id, name, category, description
             <FiTrash2 size={20} color="#183196" />
           </button>
         </>
-      ) }
+      ) 
+      }
       
     </Container>
   )

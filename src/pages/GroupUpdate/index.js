@@ -20,6 +20,9 @@ export default function GroupUpdate () {
   const [qttMinStd, setQttMinStd] = useState('');
   const [qttMaxStd, setQttMaxStd] = useState('');
   const [qttMeet, setQttMeet] = useState('');
+  const [campus, setCampus] = useState('');
+  const [semesterYear, setSemesterYear] = useState('');
+  const [period, setPeriod] = useState('');
 
   useEffect(() => {
     async function fillGroup() {
@@ -32,6 +35,9 @@ export default function GroupUpdate () {
       setQttMinStd(group.data.qtt_min_students);
       setQttMaxStd(group.data.qtt_max_students);
       setQttMeet(group.data.qtt_meetings);
+      setCampus(group.data.campus);
+      setSemesterYear(group.data.semester_year);
+      setPeriod(group.data.period);
     }
     fillGroup();
   }, [])
@@ -114,6 +120,32 @@ export default function GroupUpdate () {
                 onChange={e => setQttMeet(e.target.value)}
               />
             </label>
+
+            <div>
+              <label>
+                Campus
+                <input 
+                  value={campus}
+                  onChange={e => setCampus(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Semestre
+                <input 
+                  value={semesterYear}
+                  onChange={e => setSemesterYear(e.target.value)}
+                />
+              </label>
+
+              <label>
+                Periodo
+                <input 
+                  value={period}
+                  onChange={e => setPeriod(e.target.value)}
+                />
+              </label>
+            </div>
 
             <button type="submit">
               Alterar
