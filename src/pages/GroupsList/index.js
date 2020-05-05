@@ -9,13 +9,16 @@ import api from '../../services/api';
 
 export default function GroupList() {
   const [groups, setGroups] = useState([]);
-
+  
   useEffect(() => {
-    api.get('groups')
-      .then(response => {
-        setGroups(response.data)
-      })
-  }, [])
+    async function fillGroup () {
+      await api.get('groups')
+        .then(response => {
+          setGroups(response.data)
+        });
+    }
+    fillGroup();
+  }, []);
 
   return (
     <>
@@ -26,8 +29,9 @@ export default function GroupList() {
             <CardList>
               { groups.map(group => (
                 <GroupCard
-                  noButtons={false}
+                  isRequest={false}
                   key={group.id}
+                  id={group.id}
                   name={group.name} 
                   category={group.category}
                   description={group.description}

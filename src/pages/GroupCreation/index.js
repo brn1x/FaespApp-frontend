@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 
-import { Container, Button } from './styles';
+import { Container } from './styles';
 
 import Header from '../../components/Header';
 
 import api from '../../services/api';
 
 export default function GroupCreation () {
+  const history = useHistory();
+
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [groupOwner, setGroupOwner] = useState('');
-  const [qttMinStd, setQttMinStd] = useState();
-  const [qttMaxStd, setQttMaxStd] = useState();
-  const [qttMeet, setQttMeet] = useState();
+  const [qttMinStd, setQttMinStd] = useState('');
+  const [qttMaxStd, setQttMaxStd] = useState('');
+  const [qttMeet, setQttMeet] = useState('');
 
   async function handleCreateGroup (event) {
     event.preventDefault();
@@ -30,6 +33,8 @@ export default function GroupCreation () {
 
     try {
       await api.post('/groups', group);
+
+      history.push('/');
     } catch (error) {
       alert('Erro ao cadastrar grupo');
     }

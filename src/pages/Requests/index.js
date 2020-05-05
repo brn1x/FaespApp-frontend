@@ -11,12 +11,17 @@ export default function Requests () {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    api.get('requests')
-      .then(response => {
-        setRequests(response.data)
-      })
+    async function fillRequests() {
+      api.get('requests')
+        .then(response => {
+          setRequests(response.data);
+        })
+    }
+    fillRequests();
   }, [])
 
+  
+  
   return (
     <>
       <Header />
@@ -26,8 +31,9 @@ export default function Requests () {
           <CardList>
             { requests.map(request =>(
               <GroupCard
-                noButtons={true}
+                isRequest={true}
                 key={request.id}
+                id={request.id}
                 name={request.name}
                 category={request.category}
                 description={request.description}

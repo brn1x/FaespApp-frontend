@@ -15,7 +15,7 @@ export default function Routes(){
         <Route path="/admin" component={Admin} />
         <Route path="/groups/create" component={GroupCreation} />
         <Route path="/groups/update" component={GroupUpdate} />
-        <Route path="/requests/" component={Requests} />
+        <Route path="/requests" component={Requests} />
       </Switch>
     </BrowserRouter>
   );
