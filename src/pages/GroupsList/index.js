@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { useHistory } from 'react-router-dom'
+
 import { Container, List, CardList, Title } from './styles';
 
 import Header from '../../components/Header';
@@ -9,7 +11,23 @@ import api from '../../services/api';
 
 export default function GroupList() {
   const [groups, setGroups] = useState([]);
-  
+  const [groupId, setGroupId] = useState('');
+  const history = useHistory();
+
+  async function handleUpdateGroupPage(id) {
+    history.push(`/groups/update/${id}`, { id: id });
+  }
+
+  async function handleDeleteGroup(id) {
+    try {
+      await api.delete(`/groups/${id}`);
+
+      setGroupId(id);
+    } catch (error) {
+      alert('Erro ao deletar grupo');
+    }
+  }
+
   useEffect(() => {
     async function fillGroup () {
       await api.get('groups')
@@ -18,7 +36,7 @@ export default function GroupList() {
         });
     }
     fillGroup();
-  }, []);
+  }, [groupId]);
 
   return (
     <>
@@ -30,6 +48,8 @@ export default function GroupList() {
               { groups.map(group => (
                 <GroupCard
                   isRequest={false}
+                  up={handleUpdateGroupPage}
+                  down={handleDeleteGroup}
                   key={group.id}
                   id={group.id}
                   name={group.name} 

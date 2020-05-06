@@ -1,42 +1,9 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Container, CategoryTxt, Paragraph } from './styles';
 import { FiTrash2, FiEdit, FiCheckSquare, FiXSquare } from 'react-icons/fi';
 
-import api from '../../services/api';
-
-export default function GroupCards ({ isRequest, id, name, category, description, qttMin, qttMax, qttMeetings, campus, semesterYear, period }) {
-  const history = useHistory();
-
-  async function handleAcceptRequest(id) {
-    try {
-      await api.put(`/requests/accept/${id}`);
-    } catch (error) {
-      alert('Erro ao aceitar o requerimento');
-    }
-  }
-  
-  async function handleRejectRequest(id) {
-    try {
-      await api.put(`/requests/reject/${id}`);
-    } catch (error) {
-      alert('Erro ao rejeitar o requerimento');
-    }
-  }
-  
-  async function handleUpdateGroupPage(id) {
-    history.push(`/groups/update/${id}`, { id: id });
-  }
-  
-  async function handleDeleteGroup(id) {
-    try {
-      await api.delete(`/groups/${id}`);
-    } catch (error) {
-      alert('Erro ao deletar grupo');
-    }
-  }
-
+export default function GroupCards ({ isRequest, up, down, id, name, category, description, qttMin, qttMax, qttMeetings, campus, semesterYear, period }) {
   return (
     <Container>
       <h1>{name}</h1>
@@ -49,20 +16,20 @@ export default function GroupCards ({ isRequest, id, name, category, description
       </div>
       { isRequest === true ? (
         <>
-          <button type="button" onClick={() => handleRejectRequest(id)}>
+          <button type="button" onClick={() => down(id)}>
             <FiXSquare size={20} color="#8f2929" />
           </button>
-          <button type="button" onClick={() => handleAcceptRequest(id)}>
+          <button type="button" onClick={() => up(id)}>
             <FiCheckSquare size={20} color="#237534" />
           </button>
         </>
       ) : (
         <>
-          <button type="button" onClick={() => handleUpdateGroupPage(id)}>
+          <button type="button" onClick={() => up(id)}>
             <FiEdit size={20} color="#183196" />
           </button>
-          <button type="button" onClick={() => handleDeleteGroup(id)}>
-            <FiTrash2 size={20} color="#183196" />
+          <button type="button" onClick={() => down(id)}>
+            <FiTrash2 size={20} color="#8f2929" />
           </button>
         </>
       ) 

@@ -40,7 +40,7 @@ export default function GroupUpdate () {
       setPeriod(group.data.period);
     }
     fillGroup();
-  }, [])
+  }, [id])
 
   async function handleUpdateGroup (event) {
     event.preventDefault();
@@ -52,7 +52,10 @@ export default function GroupUpdate () {
       ra_group_owner: groupOwner,
       qtt_min_students: qttMinStd,
       qtt_max_students: qttMaxStd,
-      qtt_meetings: qttMeet
+      qtt_meetings: qttMeet,
+      campus,
+      semester_year: semesterYear,
+      period
     }
 
     await api.put(`/groups/${id}`, updatedGroup);
