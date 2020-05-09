@@ -102,7 +102,7 @@ export default function GroupUpdate () {
 
             <label>
               Quantidade minima de alunos
-              <input
+              <input type="number"
                 value={qttMinStd}
                 onChange={e => setQttMinStd(e.target.value)}
               />
@@ -110,7 +110,7 @@ export default function GroupUpdate () {
 
             <label>
               Quantidade máxima de alunos
-              <input
+              <input type="number"
                 value={qttMaxStd}
                 onChange={e => setQttMaxStd(e.target.value)}
               />
@@ -118,7 +118,7 @@ export default function GroupUpdate () {
 
             <label>
               Quantidade de encontros
-              <input
+              <input type="number"
                 value={qttMeet}
                 onChange={e => setQttMeet(e.target.value)}
               />

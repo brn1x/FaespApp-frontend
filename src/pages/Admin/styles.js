@@ -28,6 +28,11 @@ export const Container = styled.div`
       width: 100%;
       max-width: 450px;
 
+      label {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
       button {
         width: 100%;
         height: 40px;
