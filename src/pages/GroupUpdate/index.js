@@ -64,7 +64,7 @@ export default function GroupUpdate () {
 
     await api.put(`/groups/${id}`, updatedGroup);
 
-    history.push('/')
+    history.push('/requests')
   }
 
   useEffect(() => {
