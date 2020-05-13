@@ -53,13 +53,13 @@ export default function GroupList() {
                   key={group.id}
                   id={group.id}
                   name={group.name} 
-                  category={group.category}
+                  category={group.category.name}
                   description={group.description}
                   qttMin={group.qtt_min_students}
                   qttMax={group.qtt_max_students}
                   qttMeetings={group.qtt_meetings}
-                  campus={group.campus}
-                  semesterYear={group.semester_year}
+                  campus={group.campus.name}
+                  semesterYear={group.semester.name}
                   period={group.period}
                 />
               ))}

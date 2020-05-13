@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { useHistory } from 'react-router-dom'
 
 import { Container } from './styles';
@@ -21,19 +22,23 @@ export default function GroupCreation () {
   const [semesterYear, setSemesterYear] = useState('');
   const [period, setPeriod] = useState('');
 
+  const [categories, setCategories] = useState([]);
+  const [campuses, setCampuses] = useState([]);
+  const [semesters, setSemesters] = useState([]);
+
   async function handleCreateGroup (event) {
     event.preventDefault();
 
     const group = {
       name,
       description,
-      category,
+      category_id: category,
       ra_group_owner: groupOwner,
       qtt_min_students: qttMinStd,
       qtt_max_students: qttMaxStd,
       qtt_meetings: qttMeet,
-      campus,
-      semester_year: semesterYear,
+      campus_id: campus,
+      semester_id: semesterYear,
       period
     };
 
@@ -45,6 +50,31 @@ export default function GroupCreation () {
       alert('Erro ao cadastrar grupo');
     }
   }
+
+  useEffect(() => {
+    async function fillCategories () {
+      await api.get('categories')
+      .then(response => {
+        setCategories(response.data)
+      });
+    }
+    async function fillCampus () {
+      await api.get('campus')
+      .then(response => {
+        setCampuses(response.data)
+      });
+    }
+    async function fillSemester () {
+      await api.get('semesters')
+      .then(response => {
+        setSemesters(response.data)
+      });
+    }
+
+    fillCategories();
+    fillCampus();
+    fillSemester();
+  }, []);
 
   return (
     <>
@@ -61,10 +91,14 @@ export default function GroupCreation () {
 
             <label>
               Categoria
-              <input
-                value={category}
-                onChange={e => setCategory(e.target.value)}
-              />
+              <select onChange={e => setCategory(e.target.value)}>
+                <option value="" disabled hidden selected>Selecione a Categoria</option>
+                { categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <label>
@@ -110,26 +144,36 @@ export default function GroupCreation () {
             <div>
               <label>
                 Campus
-                <input 
-                  value={campus}
-                  onChange={e => setCampus(e.target.value)}
-                />
+                <select onChange={e => setCampus(e.target.value)}>
+                  <option value="" disabled hidden selected>Selecione o Campus</option>
+                { campuses.map(camp => (
+                  <option key={camp.id} value={camp.id}>
+                    {camp.name}
+                  </option>
+                ))}
+                </select>
               </label>
 
               <label>
                 Semestre
-                <input 
-                  value={semesterYear}
-                  onChange={e => setSemesterYear(e.target.value)}
-                />
+                <select onChange={e => setSemesterYear(e.target.value)}>
+                  <option value="" disabled hidden selected>Selecione o semestre</option>
+                { semesters.map(semester => (
+                  <option key={semester.id} value={semester.id}>
+                    {semester.name}
+                  </option>
+                ))}
+                </select>
               </label>
 
               <label>
                 Periodo
-                <input 
-                  value={period}
-                  onChange={e => setPeriod(e.target.value)}
-                />
+                <select onChange={e => setPeriod(e.target.value)}>
+                  <option value="" disabled hidden selected>Selecione o período</option>
+                  <option value="M">Manhã</option>
+                  <option value="T">Tarde</option>
+                  <option value="N">Noite</option>
+                </select>
               </label>
             </div>
 

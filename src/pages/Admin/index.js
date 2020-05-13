@@ -27,7 +27,7 @@ export default function Admin () {
       setEndSubscriptionDate(adminGroup.data.end_subscription_date);
     }
     getDates();
-  }, [id])
+  }, [])
 
   async function handleCreationDate (event) {
     event.preventDefault();

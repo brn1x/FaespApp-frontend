@@ -56,13 +56,13 @@ export default function Requests () {
                 key={request.id}
                 id={request.id}
                 name={request.name}
-                category={request.category}
+                category={request.category.name}
                 description={request.description}
                 qttMin={request.qtt_min_students}
                 qttMax={request.qtt_max_students}
                 qttMeetings={request.qtt_meetings}
-                campus={request.campus}
-                semesterYear={request.semester_year}
+                campus={request.campus.name}
+                semesterYear={request.semester.name}
                 period={request.period}
               />
             ))}
