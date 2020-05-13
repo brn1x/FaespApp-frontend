@@ -31,6 +31,16 @@ export default createGlobalStyle`
     padding: 0 24px;
   }
 
+  select {
+    margin-bottom: 15px;
+    width: 100%;
+    height: 40px;
+    color: #333333;
+    border: 1px solid #dcdcd6;
+    border-radius: 8px;
+    padding: 0 5px;
+  }
+
   textarea {
     width: 100%;
     min-height: 140px;
@@ -45,7 +55,7 @@ export default createGlobalStyle`
     line-height: 24px;
   }
 
-  input, button, textarea {
+  input, button, textarea, select{
     font: 400 18px Roboto, sans-serif;
   }
 

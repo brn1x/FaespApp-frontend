@@ -24,19 +24,23 @@ export default function GroupUpdate () {
   const [semesterYear, setSemesterYear] = useState('');
   const [period, setPeriod] = useState('');
 
+  const [categories, setCategories] = useState([]);
+  const [campuses, setCampuses] = useState([]);
+  const [semesters, setSemesters] = useState([]);
+
   useEffect(() => {
     async function fillGroup() {
       const group = await api.get(`/groups/${id}`);
 
       setName(group.data.name);
-      setCategory(group.data.category);
+      setCategory(group.data.category.id);
       setDescription(group.data.description);
       setGroupOwner(group.data.ra_group_owner);
       setQttMinStd(group.data.qtt_min_students);
       setQttMaxStd(group.data.qtt_max_students);
       setQttMeet(group.data.qtt_meetings);
-      setCampus(group.data.campus);
-      setSemesterYear(group.data.semester_year);
+      setCampus(group.data.campus.id);
+      setSemesterYear(group.data.semester.id);
       setPeriod(group.data.period);
     }
     fillGroup();
@@ -47,14 +51,14 @@ export default function GroupUpdate () {
     
     const updatedGroup = {
       name,
-      category,
       description,
+      category_id: category,
       ra_group_owner: groupOwner,
       qtt_min_students: qttMinStd,
       qtt_max_students: qttMaxStd,
       qtt_meetings: qttMeet,
-      campus,
-      semester_year: semesterYear,
+      campus_id: campus,
+      semester_id: semesterYear,
       period
     }
 
@@ -62,6 +66,31 @@ export default function GroupUpdate () {
 
     history.push('/')
   }
+
+  useEffect(() => {
+    async function fillCategories () {
+      await api.get('categories')
+      .then(response => {
+        setCategories(response.data)
+      });
+    }
+    async function fillCampus () {
+      await api.get('campus')
+      .then(response => {
+        setCampuses(response.data)
+      });
+    }
+    async function fillSemester () {
+      await api.get('semesters')
+      .then(response => {
+        setSemesters(response.data)
+      });
+    }
+
+    fillCategories();
+    fillCampus();
+    fillSemester();
+  }, []);
 
   return (
     <>
@@ -78,10 +107,14 @@ export default function GroupUpdate () {
 
             <label>
               Categoria
-              <input
-                value={category}
-                onChange={e => setCategory(e.target.value)}
-              />
+              <select value={category}  onChange={e => setCategory(e.target.value)}>
+                <option value="" disabled hidden>Selecione a Categoria</option>
+                { categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <label>
@@ -127,26 +160,36 @@ export default function GroupUpdate () {
             <div>
               <label>
                 Campus
-                <input 
-                  value={campus}
-                  onChange={e => setCampus(e.target.value)}
-                />
+                <select value={campus} onChange={e => setCampus(e.target.value)}>
+                  <option value="" disabled hidden>Selecione o Campus</option>
+                  { campuses.map(camp => (
+                    <option key={camp.id} value={camp.id}>
+                      {camp.name}
+                  </option>
+                  ))}
+                </select>
               </label>
 
               <label>
                 Semestre
-                <input 
-                  value={semesterYear}
-                  onChange={e => setSemesterYear(e.target.value)}
-                />
+                <select value={semesterYear} onChange={e => setSemesterYear(e.target.value)}>
+                  <option value="" disabled hidden>Selecione o semestre</option>
+                  { semesters.map(semester => (
+                    <option key={semester.id} value={semester.id}>
+                      {semester.name}
+                    </option>
+                  ))}
+                </select>
               </label>
 
               <label>
                 Periodo
-                <input 
-                  value={period}
-                  onChange={e => setPeriod(e.target.value)}
-                />
+                <select value={period} onChange={e => setPeriod(e.target.value)}>
+                  <option value="" disabled hidden>Selecione o período</option>
+                  <option value="M">Manhã</option>
+                  <option value="T">Tarde</option>
+                  <option value="N">Noite</option>
+                </select>
               </label>
             </div>
 
