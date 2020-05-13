@@ -146,11 +146,11 @@ export default function GroupCreation () {
                 Campus
                 <select onChange={e => setCampus(e.target.value)}>
                   <option value="" disabled hidden selected>Selecione o Campus</option>
-                  { campuses.map(camp => (
-                    <option key={camp.id} value={camp.id}>
-                      {camp.name}
+                { campuses.map(camp => (
+                  <option key={camp.id} value={camp.id}>
+                    {camp.name}
                   </option>
-                  ))}
+                ))}
                 </select>
               </label>
 
@@ -158,11 +158,11 @@ export default function GroupCreation () {
                 Semestre
                 <select onChange={e => setSemesterYear(e.target.value)}>
                   <option value="" disabled hidden selected>Selecione o semestre</option>
-                  { semesters.map(semester => (
-                    <option key={semester.id} value={semester.id}>
-                      {semester.name}
+                { semesters.map(semester => (
+                  <option key={semester.id} value={semester.id}>
+                    {semester.name}
                   </option>
-                  ))}
+                ))}
                 </select>
               </label>
 
