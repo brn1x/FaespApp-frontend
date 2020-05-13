@@ -1,24 +1,28 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`  
-margin: 150px auto ;
-max-width: 1500px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-  
+export const Container = styled.div`
+  width: 100%;
+  max-width: 1120px;
+  height: 85vh;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   img {
-    width: 800px;
+    width: 600px;
   }
 
   div{
+
     img {
       width: 600px;
     }
     
     form {
       width: 300px;
-      margin: 7% 35%;
+      margin: 30px 180px;
       align-items: center;
       justify-content: center;
 
