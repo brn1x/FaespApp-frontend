@@ -45,7 +45,7 @@ export default function GroupCreation () {
     try {
       await api.post('/groups', group);
 
-      history.push('/groups');
+      history.push('/requests');
     } catch (error) {
       alert('Erro ao cadastrar grupo');
     }
