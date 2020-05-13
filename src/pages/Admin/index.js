@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Container } from './styles';
 
@@ -8,7 +7,6 @@ import Header from '../../components/Header';
 import api from '../../services/api';
 
 export default function Admin () {
-  const history = useHistory();
 
   const [id, setId] = useState('');
   const [initCreateDate, setInitCreateDate] = useState('');
@@ -18,7 +16,7 @@ export default function Admin () {
   
   useEffect(() => {
     async function getDates() {
-      const adminGroup = await api.get(`/admin`);
+      const adminGroup = await api.get(`/configs/date`);
 
       setId(adminGroup.data.id);
       setInitCreateDate(adminGroup.data.init_create_date);
@@ -39,9 +37,7 @@ export default function Admin () {
       end_subscription_date: endSubscriptionDate
     }
 
-    await api.put(`/admin/${id}`, updatedAdminGroup);
-
-    history.push('/')
+    await api.put(`/configs/date/${id}`, updatedAdminGroup);
   }
 
   return (
