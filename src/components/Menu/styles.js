@@ -26,8 +26,5 @@ export const MenuList = styled.ul`
     :first-child {
       margin-left: 30px;
     }
-    :last-child {
-      color: red !important;
-    }
   }
 `;
