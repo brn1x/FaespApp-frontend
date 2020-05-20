@@ -13,6 +13,33 @@ export default function ModalConfigDate ({ onClose }) {
   const [initSubscriptionDate, setInitSubscriptionDate] = useState('');
   const [endSubscriptionDate, setEndSubscriptionDate] = useState('');
   
+  async function handleCreateSemester() {
+    try {
+      await api.post('semesters', {
+        headers: {
+          'x-logged-user': 1
+        }
+      });
+    } catch (error) {
+      alert('Erro ao criar novo semestre')    ;  
+    }
+  }
+
+  async function handleUpdateDates() {
+    const updatedAdminGroup = {
+      init_create_date: initCreateDate,
+      end_create_date: endCreateDate,
+      init_subscription_date: initSubscriptionDate,
+      end_subscription_date: endSubscriptionDate
+    }
+  
+    try {
+      await api.put(`/configs/date/${id}`, updatedAdminGroup);
+    } catch (error) {
+      alert('Erro ao atualizar datas');
+    }
+  }
+
   useEffect(() => {
     async function getDates() {
       const adminGroup = await api.get(`/configs/date`);
@@ -26,21 +53,16 @@ export default function ModalConfigDate ({ onClose }) {
     getDates();
   }, [])
 
-  async function handleUpdateDates() {
-
-    const updatedAdminGroup = {
-      init_create_date: initCreateDate,
-      end_create_date: endCreateDate,
-      init_subscription_date: initSubscriptionDate,
-      end_subscription_date: endSubscriptionDate
-    }
-
-    await api.put(`/configs/date/${id}`, updatedAdminGroup);
-  }
-
   return (
-    <>
+    <> 
       <Container>
+        <div>
+          <form onSubmit={handleCreateSemester}>
+            <button type="submit">
+              Criar novo semestre
+            </button>
+          </form>
+        </div>
         <div>
           <CloseButton onClick={() => onClose()}>
             <FiX size={20} color="000"/>

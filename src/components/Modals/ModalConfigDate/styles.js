@@ -10,9 +10,9 @@ export const Container = styled.div`
     background: #f0f0f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin: 50px auto;
+    margin: 40px auto;
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
 
     h2 {
       text-align: center;
@@ -55,13 +55,13 @@ export const Container = styled.div`
   }
 `
 export const CloseButton = styled.button`
-  right: 10px;
-  top: 10px;
-  position: absolute;
-  transition: opacity 0.2s;
-  display: flex;
-  border: none;
+  right: 10px !important;
+  top: 10px !important;
+  position: absolute !important;
+  transition: opacity 0.2s !important;
+  display: flex !important;
+  border: none !important;
   :hover {
-    opacity: 0.6;
+    opacity: 0.6 !important;
   }
 `
