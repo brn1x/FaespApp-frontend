@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Background } from './styles';
+import { ButtonsList, Background } from './styles';
 
 import Header from '../../components/Header';
 import ModalConfigDate from '../../components/Modals/ModalConfigDate';
@@ -17,20 +17,22 @@ export default function Admin () {
   return (
     <>
       <Header />
+      <ButtonsList>
         <button onClick={() => setModalConfigDateView(true)}>Configuração de datas</button>
-        {modalConfigDateView ? (
+        <button onClick={() => setModalCategory(true)}>Categorias de grupos</button>
+        <button onClick={() => setModalCampus(true)}>Campus</button>
+      </ButtonsList>
+      {modalConfigDateView ? (
           <Background>
             <ModalConfigDate onClose={() => setModalConfigDateView(false)} />
           </Background>
         ) : null}
-        <button onClick={() => setModalCategory(true)}>Categorias de grupos</button>
-        {modalCategory ? (
+      {modalCategory ? (
           <Background>
             <ModalCategory onClose={() => setModalCategory(false)}/>
           </Background>
         ) : null}
-        <button onClick={() => setModalCampus(true)}>Campus</button>
-        {modalCampus ? (
+      {modalCampus ? (
           <Background>
             <ModalCampus onClose={() => setModalCampus(false)} />
           </Background>
