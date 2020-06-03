@@ -6,16 +6,13 @@ export const Container = styled.div`
   background: #183196;
   color: #FFF;
   min-width: 1095px;
-
   display: flex;
   align-items: center;
-
-  h1 {
-    padding: 1px 10px;
-    border-right: solid 1px;
-  }
 `;
 
 export const Logo = styled.h1`
-  
+  img{
+    height: 70px;
+    width: 158px;
+  }
 `;

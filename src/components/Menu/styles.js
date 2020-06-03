@@ -6,13 +6,18 @@ export const Container = styled.div`
   width: 100%;
 
   a {
+    display: flex;
     color: #f7f7f7;
-    padding: 5px 10px;
-    text-decoration: none;
+    padding: 30px 15px;
+    text-decoration: none; 
+    font-size: 18px;
+    font-weight: 700;
+    transition: 0.4s;
 
     :hover {
+      background-color: #ecf1f8;
       text-shadow: 0.2px 0.2px #f3f3f3;
-      text-decoration: underline
+      color: #183196;
     }
   }
 `;
@@ -24,7 +29,7 @@ export const MenuList = styled.ul`
 
   li {
     :first-child {
-      margin-left: 30px;
+      margin-left: 33px;
     }
   }
 `;
