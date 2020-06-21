@@ -11,9 +11,17 @@ export default function Requests () {
   const [requests, setRequests] = useState([]);
   const [groupId, setGroupId] = useState('');
 
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
+
   async function handleAcceptRequest(id) {
     try {
-      await api.put(`/requests/accept/${id}`);
+      await api.put(`/requests/accept/${id}`, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
 
       setGroupId(id);
     } catch (error) {
@@ -23,7 +31,12 @@ export default function Requests () {
   
   async function handleRejectRequest(id) {
     try {
-      await api.put(`/requests/reject/${id}`);
+      await api.put(`/requests/reject/${id}`, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
 
       setGroupId(id);
     } catch (error) {
@@ -33,7 +46,11 @@ export default function Requests () {
 
   useEffect(() => {
     async function fillRequests () {
-      await api.get('requests')
+      await api.get('requests', {
+        headers:{
+          authorization: token
+        }
+      })
         .then(response => {
           setRequests(response.data);
         })

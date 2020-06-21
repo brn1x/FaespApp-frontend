@@ -7,7 +7,6 @@ import ModalConfigDate from '../../components/Modals/ModalConfigDate';
 import ModalCategory from '../../components/Modals/ModalCategory';
 import ModalCampus from '../../components/Modals/ModalCampus';
 
-
 export default function Admin () {
 
   const [modalConfigDateView, setModalConfigDateView] = useState(false);

@@ -12,9 +12,17 @@ export default function ModalCategory({ onClose }){
   
   const [categories, setCategories] = useState([]);
 
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
+
   async function handleDeleteCategory(id){
     try{
-      await api.delete(`/categories/${id}`);
+      await api.delete(`/categories/${id}`, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
     }catch (error){
       alert('Erro ao deletar categoria');
     }
@@ -26,7 +34,12 @@ export default function ModalCategory({ onClose }){
     const newCategory ={ name };
 
     try {
-      await api.post('categories', newCategory);
+      await api.post('categories', newCategory, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
     }catch (error){
       alert('Erro ao cadastrar categoria');
     }
@@ -34,7 +47,11 @@ export default function ModalCategory({ onClose }){
  
   useEffect(() => {
     async function fillCategories () {
-      await api.get('categories')
+      await api.get('categories', {
+        headers:{
+          authorization: token
+        }
+      })
       .then(response => {
         setCategories(response.data)
       });

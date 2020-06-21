@@ -11,6 +11,9 @@ export default function GroupUpdate () {
   const location = useLocation();
   const history = useHistory();
 
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
+
   const id = location.state.id;
 
   const [name, setName] = useState('');
@@ -30,7 +33,11 @@ export default function GroupUpdate () {
 
   useEffect(() => {
     async function fillGroup() {
-      const group = await api.get(`/groups/${id}`);
+      const group = await api.get(`/groups/${id}`, {
+        headers:{
+          authorization: token
+        }
+      });
 
       setName(group.data.name);
       setCategory(group.data.category.id);
@@ -62,35 +69,50 @@ export default function GroupUpdate () {
       period
     }
 
-    await api.put(`/groups/${id}`, updatedGroup);
+    await api.put(`/groups/${id}`, updatedGroup, {
+      headers:{
+        'x-logged-user': login,
+        authorization: token
+      }
+    });
 
     history.push('/groups')
   }
 
   useEffect(() => {
     async function fillCategories () {
-      await api.get('categories')
-      .then(response => {
+      await api.get('categories',{
+        headers:{
+          authorization: token
+        }
+      }).then(response => {
         setCategories(response.data)
       });
     }
     async function fillCampus () {
-      await api.get('campus')
-      .then(response => {
+      await api.get('campus',{
+        headers:{
+          authorization: token
+        }
+      }).then(response => {
         setCampuses(response.data)
       });
     }
     async function fillSemester () {
-      await api.get('semesters')
-      .then(response => {
+      await api.get('semesters',{
+        headers:{
+          authorization: token
+        }
+      }).then(response => {
         setSemesters(response.data)
       });
+      
     }
-
+    
     fillCategories();
     fillCampus();
     fillSemester();
-  }, []);
+  }, [])  
 
   return (
     <>
@@ -174,11 +196,9 @@ export default function GroupUpdate () {
                 Semestre
                 <select value={semesterYear} onChange={e => setSemesterYear(e.target.value)}>
                   <option value="" disabled hidden>Selecione o semestre</option>
-                  { semesters.map(semester => (
-                    <option key={semester.id} value={semester.id}>
-                      {semester.name}
-                    </option>
-                  ))}
+                  <option key={semesters.id} value={semesters.id}>
+                    {semesters.name}
+                  </option>
                 </select>
               </label>
 

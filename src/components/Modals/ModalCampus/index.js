@@ -9,23 +9,35 @@ export default function Modalcampus({ onClose }){
   const [name, setName] = useState('');
   const [campus, setCampus] = useState('');
   const [campuses, setCampuses] = useState([]);
+
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
  
   async function handleDeleteCampus(id){
 
     try {
-      await api.delete(`campus/${id}`);
+      await api.delete(`campus/${id}`, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
     } catch (error) {
       alert('Erro ao deletar Campus');      
     }
   }
   
   async function handleCreateCampus(){
-
     const newCampus = {
       name
     }
     try {
-      await api.post('campus', newCampus);
+      await api.post('campus', newCampus, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
     } catch (error) {
       alert('Erro ao cadastrar Campus');      
     }
@@ -33,13 +45,18 @@ export default function Modalcampus({ onClose }){
 
   useEffect(() => {
     async function fillCampuses(){
-      await api.get('campus')
+      await api.get('campus', {
+        headers:{
+          authorization: token
+        }
+      })
       .then(response => {
         setCampuses(response.data);
       })
     }
     fillCampuses()
   }, [])
+  console.log(`tkn: ${token} ||| user: ${login}`)
 
   return(
     <>

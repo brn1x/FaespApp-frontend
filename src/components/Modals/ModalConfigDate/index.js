@@ -12,12 +12,16 @@ export default function ModalConfigDate ({ onClose }) {
   const [endCreateDate, setEndCreateDate] = useState('');
   const [initSubscriptionDate, setInitSubscriptionDate] = useState('');
   const [endSubscriptionDate, setEndSubscriptionDate] = useState('');
+
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
   
   async function handleCreateSemester() {
     try {
       await api.post('semesters', {
-        headers: {
-          'x-logged-user': 1
+        headers:{
+          'x-logged-user': login,
+          authorization: token
         }
       });
     } catch (error) {
@@ -34,7 +38,12 @@ export default function ModalConfigDate ({ onClose }) {
     }
   
     try {
-      await api.put(`/configs/date/${id}`, updatedAdminGroup);
+      await api.put(`/configs/date/${id}`, updatedAdminGroup, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
     } catch (error) {
       alert('Erro ao atualizar datas');
     }

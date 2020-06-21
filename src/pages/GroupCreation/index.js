@@ -10,6 +10,8 @@ import api from '../../services/api';
 
 export default function GroupCreation () {
   const history = useHistory();
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -43,7 +45,12 @@ export default function GroupCreation () {
     };
 
     try {
-      await api.post('/groups', group);
+      await api.post('/groups', group, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
 
       history.push('/requests');
     } catch (error) {
@@ -53,19 +60,31 @@ export default function GroupCreation () {
 
   useEffect(() => {
     async function fillCategories () {
-      await api.get('categories')
+      await api.get('categories', {
+        headers:{
+          authorization: token
+        }
+      })
       .then(response => {
         setCategories(response.data)
       });
     }
     async function fillCampus () {
-      await api.get('campus')
+      await api.get('campus', {
+        headers:{
+          authorization: token
+        }
+      })
       .then(response => {
         setCampuses(response.data)
       });
     }
     async function fillSemester () {
-      await api.get('semesters')
+      await api.get('semesters', {
+        headers:{
+          authorization: token
+        }
+      })
       .then(response => {
         setSemesters(response.data)
       });
@@ -158,9 +177,8 @@ export default function GroupCreation () {
                 Semestre
                 <select onChange={e => setSemesterYear(e.target.value)}>
                   <option value="" disabled hidden selected>Selecione o semestre</option>
-                { semesters.map(semester => (
-                  <option key={semester.id} value={semester.id}>
-                    {semester.name}
+                  <option key={semesters.id} value={semesters.id}>
+                    {semesters.name}
                   </option>
                 ))}
                 </select>

@@ -13,6 +13,9 @@ export default function GroupList() {
   const [groups, setGroups] = useState([]);
   const [groupId, setGroupId] = useState('');
   const history = useHistory();
+  
+  const token = localStorage.getItem('token');
+  const login = localStorage.getItem('login');
 
   async function handleUpdateGroupPage(id) {
     history.push(`/groups/update/${id}`, { id: id });
@@ -20,7 +23,12 @@ export default function GroupList() {
 
   async function handleDeleteGroup(id) {
     try {
-      await api.delete(`/groups/${id}`);
+      await api.delete(`/groups/${id}`, {
+        headers:{
+          'x-logged-user': login,
+          authorization: token
+        }
+      });
 
       setGroupId(id);
     } catch (error) {
@@ -29,9 +37,14 @@ export default function GroupList() {
   }
 
   useEffect(() => {
+    console.log(token);
     async function fillGroup () {
-      await api.get('groups')
-        .then(response => {
+      await api.get('groups/all', {
+        headers:{
+          authorization: token
+        }
+      })
+      .then(response => {
           setGroups(response.data)
         });
     }

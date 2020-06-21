@@ -22,8 +22,14 @@ export default function Login(){
 
     try {
       await api.post('/session', session)
-        
-      history.push('/groups')
+        .then(response => {
+          if(!response.data.token){
+            return alert('Acesso Invalido');
+          }
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('login', login);
+          history.push('/groups')
+        })
     } catch (error) {
       alert('Usuário ou senha incorretos')
     }
