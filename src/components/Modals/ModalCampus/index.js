@@ -55,7 +55,7 @@ export default function Modalcampus({ onClose }){
       })
     }
     fillCampuses()
-  }, [])
+  }, [token])
   console.log(`tkn: ${token} ||| user: ${login}`)
 
   return(

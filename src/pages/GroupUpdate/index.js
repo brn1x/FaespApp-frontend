@@ -51,7 +51,7 @@ export default function GroupUpdate () {
       setPeriod(group.data.period);
     }
     fillGroup();
-  }, [id])
+  }, [id, token])
 
   async function handleUpdateGroup (event) {
     event.preventDefault();
@@ -112,7 +112,7 @@ export default function GroupUpdate () {
     fillCategories();
     fillCampus();
     fillSemester();
-  }, [])  
+  }, [token])  
 
   return (
     <>
