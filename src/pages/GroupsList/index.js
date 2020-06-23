@@ -37,7 +37,6 @@ export default function GroupList() {
   }
 
   useEffect(() => {
-    console.log(token);
     async function fillGroup () {
       await api.get('groups/all', {
         headers:{

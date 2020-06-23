@@ -7,6 +7,10 @@ import Header from '../../components/Header';
 
 import api from '../../services/api';
 
+import * as yup from 'yup'
+import formValidations from '../../utils/FormValidations'
+
+
 export default function GroupUpdate () {
   const location = useLocation();
   const history = useHistory();
@@ -53,28 +57,77 @@ export default function GroupUpdate () {
     fillGroup();
   }, [id])
 
+  yup.setLocale({
+    mixed:{
+      default: 'Não é Valido',
+      required: '${path}',
+    },
+    string:{
+      min: '${path}',
+    },
+    number:{
+      min: '${path}',
+    },
+  })
+
+  const updateGroupSchema = yup.object().shape({
+    name: yup.string().required(),
+    category: yup.number().required().min(1),
+    description: yup.string().required(),
+    groupOwner: yup.string().min(11).max(11),
+    qttMinStd: yup.number().required().min(1),
+    qttMaxStd: yup.number().required().min(1),
+    qttMeet: yup.number().required().min(1),
+    campus: yup.number().required().min(1),
+    semesterYear: yup.number().required().min(1),
+    period: yup.string().required().max(1),
+  })
+  
   async function handleUpdateGroup (event) {
     event.preventDefault();
     
-    const updatedGroup = {
+    const updateGroupFormData = {
       name,
       description,
-      category_id: category,
-      ra_group_owner: groupOwner,
-      qtt_min_students: qttMinStd,
-      qtt_max_students: qttMaxStd,
-      qtt_meetings: qttMeet,
-      campus_id: campus,
-      semester_id: semesterYear,
+      category,
+      groupOwner,
+      qttMinStd,
+      qttMaxStd,
+      qttMeet,
+      campus,
+      semesterYear,
       period
     }
 
-    await api.put(`/groups/${id}`, updatedGroup, {
-      headers:{
-        'x-logged-user': login,
-        authorization: token
-      }
-    });
+    updateGroupSchema.validate(updateGroupFormData, { abortEarly: false })
+      .then(async valid => {
+        const updatedGroup = {
+          name,
+          description,
+          category_id: category,
+          ra_group_owner: groupOwner,
+          qtt_min_students: qttMinStd,
+          qtt_max_students: qttMaxStd,
+          qtt_meetings: qttMeet,
+          campus_id: campus,
+          semester_id: semesterYear,
+          period
+        }
+    
+        try{
+          await api.put(`/groups/${id}`, updatedGroup, {
+            headers:{
+              'x-logged-user': login,
+              authorization: token
+            }
+          });
+        } catch(error){
+          alert('Erro ao atualizar os grupos');
+        }
+      }).catch((err) => {
+        formValidations(err.errors)
+        alert("Campos Obrigatórios não preenchidos")
+      })
 
     history.push('/groups')
   }
