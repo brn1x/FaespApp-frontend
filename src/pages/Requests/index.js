@@ -16,7 +16,7 @@ export default function Requests () {
 
   async function handleAcceptRequest(id) {
     try {
-      await api.put(`/requests/accept/${id}`, {
+      await api.put(`/requests/accept/${id}`, '', {
         headers:{
           'x-logged-user': login,
           authorization: token
@@ -31,7 +31,7 @@ export default function Requests () {
   
   async function handleRejectRequest(id) {
     try {
-      await api.put(`/requests/reject/${id}`, {
+      await api.put(`/requests/reject/${id}`, '', {
         headers:{
           'x-logged-user': login,
           authorization: token
@@ -56,7 +56,7 @@ export default function Requests () {
         })
     }
     fillRequests();
-  }, [groupId])
+  }, [groupId, token])
   
   return (
     <>

@@ -55,7 +55,7 @@ export default function GroupUpdate () {
       setPeriod(group.data.period);
     }
     fillGroup();
-  }, [id])
+  }, [id, token])
 
   yup.setLocale({
     mixed:{
@@ -165,7 +165,7 @@ export default function GroupUpdate () {
     fillCategories();
     fillCampus();
     fillSemester();
-  }, [])  
+  }, [token])  
 
   return (
     <>

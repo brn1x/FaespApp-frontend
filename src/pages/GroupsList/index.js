@@ -48,7 +48,7 @@ export default function GroupList() {
         });
     }
     fillGroup();
-  }, [groupId]);
+  }, [groupId, token]);
 
   return (
     <>

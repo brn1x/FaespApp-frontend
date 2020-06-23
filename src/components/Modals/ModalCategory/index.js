@@ -58,7 +58,7 @@ export default function ModalCategory({ onClose }){
     }
 
     fillCategories();
-  }, []);
+  }, [token]);
 
   return(
     <>

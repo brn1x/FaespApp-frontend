@@ -141,7 +141,7 @@ export default function GroupCreation () {
     fillCategories();
     fillCampus();
     fillSemester();
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -234,6 +234,10 @@ export default function GroupCreation () {
                   <option key={semesters.id} value={semesters.id}>
                     {semesters.name}
                   </option>
+<<<<<<< HEAD
+=======
+                ))
+>>>>>>> 4b4c67400ecc46e203edc013c8df18bd1b07d6f8
                 </select>
               </label>
 
