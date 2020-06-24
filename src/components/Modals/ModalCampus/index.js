@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from 'react';
 import {FiX} from 'react-icons/fi'
 
@@ -27,7 +28,7 @@ export default function Modalcampus({ onClose }){
     name: yup.string().required(),
   })
 
-  async function handleDeleteCampus(id, event){
+  async function handleDeleteCampus(event, id){
     event.preventDefault()
 
     try {
@@ -91,7 +92,7 @@ export default function Modalcampus({ onClose }){
           <CloseButton onClick={() => onClose()}>
             <FiX size={20} color="000"/>
           </CloseButton>
-          <form onSubmit={() => handleDeleteCampus(campus)}>
+          <form onSubmit={(e) => handleDeleteCampus(e, campus)}>
               <select onChange={e => setCampus(e.target.value)}>
                 <option value="" disabled hidden selected>Selecione um Campus para excluir </option>
                 { campuses.map(campus => (

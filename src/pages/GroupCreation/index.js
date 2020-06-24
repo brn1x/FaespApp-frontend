@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from 'react';
 
 import { useHistory } from 'react-router-dom'
@@ -103,7 +104,6 @@ export default function GroupCreation () {
         }
       }).catch((err)=> {
         formValidations(err.errors)
-        console.log(err.errors)
         alert("Campos Obrigatórios não preenchidos")
       })
   }

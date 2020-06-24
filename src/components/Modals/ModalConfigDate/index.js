@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 

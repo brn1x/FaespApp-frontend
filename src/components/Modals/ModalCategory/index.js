@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState, useEffect } from 'react';
 import {FiX} from 'react-icons/fi'
 
@@ -29,7 +30,7 @@ export default function ModalCategory({ onClose }){
     name: yup.string().required(),
   })
 
-  async function handleDeleteCategory(id, event){
+  async function handleDeleteCategory(event, id){
     event.preventDefault();
     try{
       await api.delete(`/categories/${id}`, {
@@ -38,7 +39,7 @@ export default function ModalCategory({ onClose }){
           authorization: token
         }
       });
-      alert("Categoria salva!")
+      alert("Categoria excluida!")
       onClose();
     }catch (error){
       alert('Erro ao deletar categoria');
@@ -93,7 +94,7 @@ export default function ModalCategory({ onClose }){
           <CloseButton onClick={() => onClose()}>
             <FiX size={20} color="000"/>
           </CloseButton>
-          <form onSubmit={() => handleDeleteCategory(category)}>
+          <form onSubmit={(e) => handleDeleteCategory(e, category)}>
               <select onChange={e => setCategory(e.target.value)}>
                 <option value="" disabled hidden selected>Selecione uma categoria para excluir </option>
                 { categories.map(category => (
