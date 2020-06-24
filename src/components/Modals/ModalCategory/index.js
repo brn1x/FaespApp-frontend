@@ -4,6 +4,9 @@ import {FiX} from 'react-icons/fi'
 import { Container, CloseButton } from './styles';
 import api from '../../../services/api';
 
+import * as yup from 'yup'
+import FormValidations from '../../../utils/FormValidations';
+
 export default function ModalCategory({ onClose }){
 
   const [name, setName] = useState('');
@@ -15,7 +18,19 @@ export default function ModalCategory({ onClose }){
   const token = localStorage.getItem('token');
   const login = localStorage.getItem('login');
 
-  async function handleDeleteCategory(id){
+  yup.setLocale({
+    mixed:{
+      default: 'Não é Valido',
+      required: '${path}',
+    },
+  })
+
+  const campusSchema = yup.object().shape({
+    name: yup.string().required(),
+  })
+
+  async function handleDeleteCategory(id, event){
+    event.preventDefault();
     try{
       await api.delete(`/categories/${id}`, {
         headers:{
@@ -23,26 +38,37 @@ export default function ModalCategory({ onClose }){
           authorization: token
         }
       });
+      alert("Categoria salva!")
+      onClose();
     }catch (error){
       alert('Erro ao deletar categoria');
     }
   }
 
   async function handleCreateCategory(event){
-    
+    event.preventDefault();
 
-    const newCategory ={ name };
+    const categoryFormData = { name, }
 
-    try {
-      await api.post('categories', newCategory, {
-        headers:{
-          'x-logged-user': login,
-          authorization: token
+    campusSchema.validate(categoryFormData)
+      .then( async valid => {
+        const newCategory = { name };
+        try {
+          await api.post('categories', newCategory, {
+            headers:{
+              'x-logged-user': login,
+              authorization: token
+            }
+          });
+          alert("Categoria salva!")
+          onClose();
+        }catch (error){
+          alert('Erro ao cadastrar categoria');
         }
-      });
-    }catch (error){
-      alert('Erro ao cadastrar categoria');
-    }
+      }).catch((err) => {
+        FormValidations(err.errors)
+        alert("Campos obrigatórios não preenchidos")
+      })
   }
  
   useEffect(() => {
@@ -84,8 +110,9 @@ export default function ModalCategory({ onClose }){
             <label>
               Criar nova categoria
               <input
+                id="name"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={e => {setName(e.target.value); e.target.style.borderColor = ''}}
               />
             </label>
             <button type="submit">

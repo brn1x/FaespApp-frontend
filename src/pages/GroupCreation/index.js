@@ -38,6 +38,7 @@ export default function GroupCreation () {
     },
     string:{
       min: '${path}',
+      max: '${path}',
     },
     number:{
       min: '${path}',
@@ -95,13 +96,14 @@ export default function GroupCreation () {
               authorization: token
             }
           });
-    
+          alert("Grupo Criado!")
           history.push('/requests');
         } catch (error) {
           alert('Erro ao cadastrar grupo');
         }
       }).catch((err)=> {
         formValidations(err.errors)
+        console.log(err.errors)
         alert("Campos Obrigatórios não preenchidos")
       })
   }
@@ -182,6 +184,7 @@ export default function GroupCreation () {
               RA Presidente do Grupo
               <input
                 id="groupOwner"
+                maxlength="11"
                 value={groupOwner}
                 onChange={e => {setGroupOwner(e.target.value); e.target.style.borderColor = ''}}
               />
@@ -234,10 +237,6 @@ export default function GroupCreation () {
                   <option key={semesters.id} value={semesters.id}>
                     {semesters.name}
                   </option>
-<<<<<<< HEAD
-=======
-                ))
->>>>>>> 4b4c67400ecc46e203edc013c8df18bd1b07d6f8
                 </select>
               </label>
 

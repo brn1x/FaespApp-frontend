@@ -29,8 +29,8 @@ export default function GroupList() {
           authorization: token
         }
       });
-
       setGroupId(id);
+      alert("O grupo foi excluido");
     } catch (error) {
       alert('Erro ao deletar grupo');
     }

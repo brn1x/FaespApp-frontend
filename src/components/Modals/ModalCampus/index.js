@@ -4,6 +4,9 @@ import {FiX} from 'react-icons/fi'
 import { Container, CloseButton } from './styles';
 import api from '../../../services/api';
 
+import * as yup from 'yup'
+import FormValidations from '../../../utils/FormValidations';
+
 export default function Modalcampus({ onClose }){
 
   const [name, setName] = useState('');
@@ -12,8 +15,20 @@ export default function Modalcampus({ onClose }){
 
   const token = localStorage.getItem('token');
   const login = localStorage.getItem('login');
+
+  yup.setLocale({
+    mixed:{
+      default: 'Não é Valido',
+      required: '${path}',
+    },
+  })
  
-  async function handleDeleteCampus(id){
+  const campusSchema = yup.object().shape({
+    name: yup.string().required(),
+  })
+
+  async function handleDeleteCampus(id, event){
+    event.preventDefault()
 
     try {
       await api.delete(`campus/${id}`, {
@@ -22,25 +37,37 @@ export default function Modalcampus({ onClose }){
           authorization: token
         }
       });
+      alert("Campus excluido!")
+      onClose();
     } catch (error) {
       alert('Erro ao deletar Campus');      
     }
   }
   
-  async function handleCreateCampus(){
-    const newCampus = {
-      name
-    }
-    try {
-      await api.post('campus', newCampus, {
-        headers:{
-          'x-logged-user': login,
-          authorization: token
+  async function handleCreateCampus(event){
+    event.preventDefault()
+
+    const campusFormData = { name, }
+
+    campusSchema.validate(campusFormData)
+      .then( async valid =>{
+        const newCampus = { name }
+        try {
+          await api.post('campus', newCampus, {
+            headers:{
+              'x-logged-user': login,
+              authorization: token
+            }
+          });
+          alert("Campus salvo!")
+          onClose();
+        } catch (error) {
+          alert('Erro ao cadastrar Campus');      
         }
-      });
-    } catch (error) {
-      alert('Erro ao cadastrar Campus');      
-    }
+      }).catch((err) => {
+        FormValidations(err.errors)
+        alert("Campos obrigatórios não preenchidos")
+      })
   }
 
   useEffect(() => {
@@ -56,7 +83,6 @@ export default function Modalcampus({ onClose }){
     }
     fillCampuses()
   }, [token])
-  console.log(`tkn: ${token} ||| user: ${login}`)
 
   return(
     <>
@@ -82,8 +108,9 @@ export default function Modalcampus({ onClose }){
             <label>
               Criar novo Campus
               <input
+                id="name"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={e => {setName(e.target.value); e.target.style.borderColor = ''}}
               />
             </label>
             <button type="submit">
