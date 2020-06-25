@@ -55,7 +55,7 @@ export default function GroupCreation () {
     qttMaxStd: yup.number().required().min(1),
     qttMeet: yup.number().required().min(1),
     campus: yup.number().required().min(1),
-    semesterYear: yup.number().required().min(1),
+    //semesterYear: yup.number().required().min(1),
     period: yup.string().required().max(1),
   })
 
@@ -71,7 +71,7 @@ export default function GroupCreation () {
       qttMaxStd,
       qttMeet,
       campus,
-      semesterYear,
+      //semesterYear,
       period
     }
 
@@ -86,7 +86,7 @@ export default function GroupCreation () {
           qtt_max_students: qttMaxStd,
           qtt_meetings: qttMeet,
           campus_id: campus,
-          semester_id: semesterYear,
+          //semester_id: semesterYear,
           period
         };
     
@@ -227,16 +227,6 @@ export default function GroupCreation () {
                     {camp.name}
                   </option>
                 ))}
-                </select>
-              </label>
-
-              <label>
-                Semestre
-                <select id="semesterYear" onChange={e => {setSemesterYear(e.target.value); e.target.style.borderColor = ''}}>
-                  <option value="" disabled hidden selected>Selecione o semestre</option>
-                  <option key={semesters.id} value={semesters.id}>
-                    {semesters.name}
-                  </option>
                 </select>
               </label>
 

@@ -22,8 +22,8 @@ export default function Requests () {
           authorization: token
         }
       });
-      alert("Grupo aceito")
       setGroupId(id);
+      alert("Grupo aceito");
     } catch (error) {
       alert('Erro ao aceitar o requerimento');
     }
@@ -37,8 +37,8 @@ export default function Requests () {
           authorization: token
         }
       });
-      alert("Grupo recusado")
       setGroupId(id);
+      alert("Grupo recusado");
     } catch (error) {
       alert('Erro ao rejeitar o requerimento');
     }

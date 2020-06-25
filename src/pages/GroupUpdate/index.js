@@ -61,7 +61,6 @@ export default function GroupUpdate () {
     qttMaxStd: yup.number().required().min(1),
     qttMeet: yup.number().required().min(1),
     campus: yup.number().required().min(1),
-    semesterYear: yup.number().required().min(1),
     period: yup.string().required().max(1),
   })
   
@@ -77,7 +76,6 @@ export default function GroupUpdate () {
       qttMaxStd: (qttMaxStd === '' ? 0 : qttMaxStd),
       qttMeet: (qttMeet === '' ? 0 : qttMeet),
       campus,
-      semesterYear,
       period
     }
     
@@ -92,7 +90,6 @@ export default function GroupUpdate () {
           qtt_max_students: qttMaxStd,
           qtt_meetings: qttMeet,
           campus_id: campus,
-          semester_id: semesterYear,
           period
         }
     
@@ -254,17 +251,7 @@ export default function GroupUpdate () {
                   ))}
                 </select>
               </label>
-
-              <label>
-                Semestre
-                <select id="semesterYear" value={semesterYear} onChange={e => {setSemesterYear(e.target.value); e.target.style.borderColor = ''}}>
-                  <option value="" disabled hidden>Selecione o semestre</option>
-                  <option key={semesters.id} value={semesters.id}>
-                    {semesters.name}
-                  </option>
-                </select>
-              </label>
-
+              
               <label>
                 Periodo
                 <select id="period" value={period} onChange={e => {setPeriod(e.target.value); e.target.style.borderColor = ''}}>

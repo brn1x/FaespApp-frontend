@@ -38,7 +38,7 @@ export default function ModalConfigDate ({ onClose }) {
     event.preventDefault()
 
     try {
-      await api.post('semesters', {
+      await api.post('semesters', '', {
         headers:{
           'x-logged-user': login,
           authorization: token
