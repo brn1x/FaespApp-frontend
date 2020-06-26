@@ -25,12 +25,10 @@ export default function GroupCreation () {
   const [qttMaxStd, setQttMaxStd] = useState(0);
   const [qttMeet, setQttMeet] = useState(0);
   const [campus, setCampus] = useState(0);
-  const [semesterYear, setSemesterYear] = useState(0);
   const [period, setPeriod] = useState('');
 
   const [categories, setCategories] = useState([]);
   const [campuses, setCampuses] = useState([]);
-  const [semesters, setSemesters] = useState([]);
 
   yup.setLocale({
     mixed:{
@@ -55,7 +53,6 @@ export default function GroupCreation () {
     qttMaxStd: yup.number().required().min(1),
     qttMeet: yup.number().required().min(1),
     campus: yup.number().required().min(1),
-    //semesterYear: yup.number().required().min(1),
     period: yup.string().required().max(1),
   })
 
@@ -71,7 +68,6 @@ export default function GroupCreation () {
       qttMaxStd,
       qttMeet,
       campus,
-      //semesterYear,
       period
     }
 
@@ -86,8 +82,8 @@ export default function GroupCreation () {
           qtt_max_students: qttMaxStd,
           qtt_meetings: qttMeet,
           campus_id: campus,
-          //semester_id: semesterYear,
-          period
+          period,
+          status: 'A'
         };
     
         try {
@@ -129,20 +125,9 @@ export default function GroupCreation () {
         setCampuses(response.data)
       });
     }
-    async function fillSemester () {
-      await api.get('semesters', {
-        headers:{
-          authorization: token
-        }
-      })
-      .then(response => {
-        setSemesters(response.data)
-      });
-    }
 
     fillCategories();
     fillCampus();
-    fillSemester();
   }, [token]);
 
   return (

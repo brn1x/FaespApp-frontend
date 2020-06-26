@@ -9,7 +9,7 @@ import api from '../../services/api';
 
 export default function Requests () {
   const [requests, setRequests] = useState([]);
-  const [groupId, setGroupId] = useState('');
+  const [groupId, setGroupId] = useState(0);
 
   const token = localStorage.getItem('token');
   const login = localStorage.getItem('login');
@@ -21,9 +21,10 @@ export default function Requests () {
           'x-logged-user': login,
           authorization: token
         }
-      });
-      setGroupId(id);
-      alert("Grupo aceito");
+      }).then(() => {
+        alert("Grupo aceito");
+        setGroupId(id);
+      })
     } catch (error) {
       alert('Erro ao aceitar o requerimento');
     }
@@ -36,26 +37,26 @@ export default function Requests () {
           'x-logged-user': login,
           authorization: token
         }
-      });
-      setGroupId(id);
-      alert("Grupo recusado");
+      }).then(() => {
+        alert("Grupo recusado");
+        setGroupId(id);
+      })
     } catch (error) {
       alert('Erro ao rejeitar o requerimento');
     }
   }
 
   useEffect(() => {
-    async function fillRequests () {
+    async function fillGroupRequests(){
       await api.get('requests', {
         headers:{
           authorization: token
         }
+      }).then(response => {
+        setRequests(response.data);
       })
-        .then(response => {
-          setRequests(response.data);
-        })
     }
-    fillRequests();
+    fillGroupRequests();
   }, [groupId, token])
   
   return (

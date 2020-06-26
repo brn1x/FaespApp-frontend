@@ -29,13 +29,10 @@ export default function GroupUpdate () {
   const [qttMaxStd, setQttMaxStd] = useState(0);
   const [qttMeet, setQttMeet] = useState(0);
   const [campus, setCampus] = useState(0);
-  const [semesterYear, setSemesterYear] = useState(0);
   const [period, setPeriod] = useState('');
 
   const [categories, setCategories] = useState([]);
   const [campuses, setCampuses] = useState([]);
-  const [semesters, setSemesters] = useState([]);
-
   
   yup.setLocale({
     mixed:{
@@ -101,6 +98,7 @@ export default function GroupUpdate () {
             }
           });
           alert("Grupo atualizado!")
+          history.push('/groups')
         } catch(error){
           alert('Erro ao atualizar os grupos');
         }
@@ -108,7 +106,6 @@ export default function GroupUpdate () {
         formValidations(err.errors)
         alert("Campos Obrigatórios não preenchidos")
       })
-      history.push('/groups')
     }
     
     useEffect(() => {
@@ -127,7 +124,6 @@ export default function GroupUpdate () {
         setQttMaxStd(group.data.qtt_max_students);
         setQttMeet(group.data.qtt_meetings);
         setCampus(group.data.campus.id);
-        setSemesterYear(group.data.semester.id);
         setPeriod(group.data.period);
       }
       fillGroup();
@@ -152,19 +148,9 @@ export default function GroupUpdate () {
         setCampuses(response.data)
       });
     }
-    async function fillSemester () {
-      await api.get('semesters',{
-        headers:{
-          authorization: token
-        }
-      }).then(response => {
-        setSemesters(response.data)
-      }); 
-    }
     
     fillCategories();
     fillCampus();
-    fillSemester();
   }, [token])  
 
   return (

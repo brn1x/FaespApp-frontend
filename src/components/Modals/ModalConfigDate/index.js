@@ -103,7 +103,7 @@ export default function ModalConfigDate ({ onClose }) {
       setEndSubscriptionDate(adminGroup.data.end_subscription_date);
     }
     getDates();
-  }, [])
+  }, [token])
 
   return (
     <>
