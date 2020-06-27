@@ -170,7 +170,7 @@ export default function GroupUpdate () {
             <label>
               Categoria
               <select id="category" value={category}  onChange={e => {setCategory(e.target.value); e.target.style.borderColor = ''}}>
-                <option value="" disabled hidden>Selecione a Categoria</option>
+                <option value="" hidden defaultValue>Selecione a Categoria</option>
                 { categories.map(category => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -192,7 +192,7 @@ export default function GroupUpdate () {
               RA Presidente do Grupo
               <input
                 id="groupOwner"
-                maxlength="11"
+                maxLength="11"
                 value={groupOwner}
                 onChange={e => {setGroupOwner(e.target.value); e.target.style.borderColor = ''}}
               />
@@ -229,7 +229,7 @@ export default function GroupUpdate () {
               <label>
                 Campus
                 <select id="campus" value={campus} onChange={e => {setCampus(e.target.value); e.target.style.borderColor = ''}}>
-                  <option value="" disabled hidden>Selecione o Campus</option>
+                  <option value="" hidden defaultValue>Selecione o Campus</option>
                   { campuses.map(camp => (
                     <option key={camp.id} value={camp.id}>
                       {camp.name}
@@ -241,7 +241,7 @@ export default function GroupUpdate () {
               <label>
                 Periodo
                 <select id="period" value={period} onChange={e => {setPeriod(e.target.value); e.target.style.borderColor = ''}}>
-                  <option value="" disabled hidden>Selecione o período</option>
+                  <option value="" hidden defaultValue>Selecione o período</option>
                   <option value="M">Manhã</option>
                   <option value="T">Tarde</option>
                   <option value="N">Noite</option>

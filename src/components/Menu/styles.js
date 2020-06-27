@@ -20,6 +20,24 @@ export const Container = styled.div`
       color: #183196;
     }
   }
+
+  button {
+    display: flex;
+    color: #f7f7f7;
+    background-color: transparent;
+    padding: 30px 15px;
+    border: 0;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    transition: 0.4s;
+    
+    :hover {
+      background-color: #ecf1f8;
+      text-shadow: 0.2px 0.2px #f3f3f3;
+      color: #183196;
+    }
+  }
 `;
 
 export const MenuList = styled.ul`
